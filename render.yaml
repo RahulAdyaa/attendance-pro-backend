@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: attendance-pro-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npx tsc --skipLibCheck && npx prisma generate
+    startCommand: npx prisma db push && node dist/index.js
+    envVars:
+      - key: JWT_SECRET
+        value: attendance-pro-secret-key-2026
+      - key: DATABASE_URL
+        fromDatabase:
+          name: attendance-pro-db
+          property: connectionString
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: attendance-pro-db
+    databaseName: attendancepro
+    user: attendancepro
+    plan: free

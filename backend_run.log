@@ -1,0 +1,36 @@
+
+> backend@1.0.0 dev
+> ts-node-dev --respawn --transpile-only src/index.ts
+
+[INFO] 22:22:22 ts-node-dev ver. 2.0.0 (using ts-node ver. 10.9.2, typescript ver. 6.0.3)
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+Server is running on port 5001
+[INFO] 22:49:25 Restarting: /Users/rahuladya/attendance pro/backend/src/controllers/classController.ts has been modified
+◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+Server is running on port 5001
+[INFO] 22:49:32 Restarting: /Users/rahuladya/attendance pro/backend/src/routes/classRoutes.ts has been modified
+◇ injected env (0) from .env // tip: ◈ encrypted .env [www.dotenvx.com]
+Server is running on port 5001
+[INFO] 22:50:44 Restarting: /Users/rahuladya/attendance pro/backend/src/controllers/classController.ts has been modified
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+Server is running on port 5001
+[INFO] 22:50:52 Restarting: /Users/rahuladya/attendance pro/backend/src/routes/classRoutes.ts has been modified
+◇ injected env (0) from .env // tip: ⌘ enable debugging { debug: true }
+Server is running on port 5001
+[INFO] 23:16:03 Restarting: /Users/rahuladya/attendance pro/backend/src/controllers/classController.ts has been modified
+◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+Server is running on port 5001
+[INFO] 23:34:49 Restarting: /Users/rahuladya/attendance pro/backend/src/controllers/classController.ts has been modified
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+Server is running on port 5001
+[INFO] 23:47:04 Restarting: /Users/rahuladya/attendance pro/backend/src/controllers/classController.ts has been modified
+◇ injected env (0) from .env // tip: ⌘ suppress logs { quiet: true }
+Server is running on port 5001
+[INFO] 01:16:49 Reinitializing TS compilation
+[INFO] 01:16:49 Restarting: /Users/rahuladya/attendance pro/backend/tsconfig.json has been modified
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+Server is running on port 5001
+[INFO] 01:42:50 Reinitializing TS compilation
+[INFO] 01:42:50 Restarting: /Users/rahuladya/attendance pro/backend/tsconfig.json has been modified
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+Server is running on port 5001

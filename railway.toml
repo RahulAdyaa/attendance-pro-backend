@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm install && npx tsc --skipLibCheck && npx prisma generate"
+
+[deploy]
+startCommand = "npx prisma db push && node dist/index.js"
+restartPolicyType = "always"

@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   // "TEACHER" or "STUDENT"
+  profilePhoto String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  teacher      Teacher?
+  student      Student?
+}
+
+model Teacher {
+  id         String   @id @default(uuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id])
+  schoolName String
+  subjects   String   @default("") // comma-separated subjects
+  classes    Class[]
+}
+
+model Student {
+  id         String             @id @default(uuid())
+  userId     String             @unique
+  user       User               @relation(fields: [userId], references: [id])
+  rollNumber String
+  classId    String?
+  class      Class?             @relation(fields: [classId], references: [id])
+  attendance AttendanceRecord[]
+}
+
+model Class {
+  id          String              @id @default(uuid())
+  teacherId   String
+  teacher     Teacher             @relation(fields: [teacherId], references: [id])
+  name        String
+  subject     String
+  classCode   String              @unique
+  createdAt   DateTime            @default(now())
+  students    Student[]
+  sessions    AttendanceSession[]
+}
+
+model AttendanceSession {
+  id        String             @id @default(uuid())
+  classId   String
+  class     Class              @relation(fields: [classId], references: [id])
+  teacherId String
+  date      DateTime
+  createdAt DateTime           @default(now())
+  isLocked  Boolean            @default(false)
+  records   AttendanceRecord[]
+}
+
+model AttendanceRecord {
+  id        String            @id @default(uuid())
+  sessionId String
+  session   AttendanceSession @relation(fields: [sessionId], references: [id])
+  studentId String
+  student   Student           @relation(fields: [studentId], references: [id])
+  status    String            // "PRESENT", "ABSENT", "LATE", "EXCUSED"
+  note      String?
+  markedAt  DateTime          @default(now())
+}
