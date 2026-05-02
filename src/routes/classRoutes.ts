@@ -6,7 +6,8 @@ import {
   getTeacherStats,
   joinClass,
   addStudent,
-  getStudentClass
+  getStudentClass,
+  deleteClass
 } from '../controllers/classController';
 import { authenticate } from '../middleware/authMiddleware';
 
@@ -21,5 +22,6 @@ router.get('/student/current', getStudentClass);
 router.get('/teacher/stats', getTeacherStats);
 router.get('/teacher', getTeacherClasses);
 router.get('/:id', getClassDetails);
+router.delete('/:id', deleteClass);
 
 export default router;

@@ -5,13 +5,15 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
   id           String   @id @default(uuid())
   email        String   @unique
   name         String
-  passwordHash String
+  passwordHash String?
+  authProvider String   @default("local") // "local", "google", "facebook"
   role         String   // "TEACHER" or "STUDENT"
   profilePhoto String?
   createdAt    DateTime @default(now())
@@ -26,6 +28,7 @@ model Teacher {
   userId     String   @unique
   user       User     @relation(fields: [userId], references: [id])
   schoolName String
+  designation String   @default("Teacher") // "HOD", "Principal", etc.
   subjects   String   @default("") // comma-separated subjects
   classes    Class[]
 }
@@ -35,6 +38,8 @@ model Student {
   userId     String             @unique
   user       User               @relation(fields: [userId], references: [id])
   rollNumber String
+  fatherName String?
+  gender     String?   // "MALE" or "FEMALE"
   classId    String?
   class      Class?             @relation(fields: [classId], references: [id])
   attendance AttendanceRecord[]
