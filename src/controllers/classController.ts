@@ -202,8 +202,7 @@ export const addStudent = async (req: AuthRequest, res: Response) => {
         include: { student: true }
       });
       
-      const studentCount = await prisma.student.count({ where: { classId: cls.id } });
-      return res.json({ message: 'Student created and added successfully', studentName: studentUser.name, studentCount });
+      return res.json({ message: 'Student created and added successfully', studentName: studentUser.name });
     }
 
     if (!studentUser.student) {
@@ -223,8 +222,7 @@ export const addStudent = async (req: AuthRequest, res: Response) => {
       });
     }
 
-    const studentCount = await prisma.student.count({ where: { classId: cls.id } });
-    res.json({ message: 'Student added successfully', studentName: studentName || studentUser.name, studentCount });
+    res.json({ message: 'Student added successfully', studentName: studentName || studentUser.name });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
