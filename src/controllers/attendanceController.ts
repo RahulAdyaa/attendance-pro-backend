@@ -75,7 +75,17 @@ export const getAttendanceHistory = async (req: AuthRequest, res: Response) => {
   try {
     const sessions = await prisma.attendanceSession.findMany({
       where: { classId },
-      include: { records: true },
+      include: {
+        records: {
+          include: {
+            student: {
+              include: {
+                user: { select: { name: true } }
+              }
+            }
+          }
+        }
+      },
       orderBy: { date: 'desc' }
     });
     res.json(sessions);

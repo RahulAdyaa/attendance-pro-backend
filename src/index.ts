@@ -22,9 +22,12 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Always listen — Koyeb needs this, Vercel ignores it (uses vercel.json entry)
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Only listen when running locally (not on Vercel)
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
 export default app;
+module.exports = app;
