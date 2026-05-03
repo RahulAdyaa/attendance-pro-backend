@@ -7,6 +7,7 @@ import {
   joinClass,
   addStudent,
   removeStudent,
+  updateStudent,
   getStudentClass,
   deleteClass
 } from '../controllers/classController';
@@ -20,6 +21,7 @@ router.post('/', createClass);
 router.post('/join', joinClass);
 router.post('/add-student', addStudent);
 router.post('/remove-student', removeStudent);
+router.post('/update-student', updateStudent);
 router.get('/student/current', getStudentClass);
 router.get('/teacher/stats', getTeacherStats);
 router.get('/teacher', getTeacherClasses);

@@ -298,3 +298,44 @@ export const removeStudent = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const updateStudent = async (req: AuthRequest, res: Response) => {
+  const { classId, studentId, studentName, fatherName, rollNumber, gender } = req.body;
+  const userId = req.user.id;
+
+  try {
+    const teacher = await prisma.teacher.findUnique({ where: { userId } });
+    if (!teacher) return res.status(403).json({ error: 'Only teachers can update students' });
+
+    const cls = await prisma.class.findUnique({ where: { id: classId } });
+    if (!cls) return res.status(404).json({ error: 'Class not found' });
+    if (cls.teacherId !== teacher.id) return res.status(403).json({ error: 'You do not own this class' });
+
+    const student = await prisma.student.findUnique({ where: { id: studentId }, include: { user: true } });
+    if (!student || student.classId !== classId) {
+      return res.status(404).json({ error: 'Student not found in this class' });
+    }
+
+    // Update student fields
+    await prisma.student.update({
+      where: { id: studentId },
+      data: {
+        rollNumber: rollNumber !== undefined ? rollNumber : student.rollNumber,
+        fatherName: fatherName !== undefined ? fatherName : student.fatherName,
+        gender: gender !== undefined ? gender : student.gender,
+      }
+    });
+
+    // Update user name if provided
+    if (studentName && student.userId) {
+      await prisma.user.update({
+        where: { id: student.userId },
+        data: { name: studentName }
+      });
+    }
+
+    res.json({ message: 'Student updated successfully' });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};
